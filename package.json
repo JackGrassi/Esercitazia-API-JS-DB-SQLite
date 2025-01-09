@@ -1,0 +1,26 @@
+{
+  "name": "esercitazia-api-js-db-sqlite",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JackGrassi/Esercitazia-API-JS-DB-SQLite.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JackGrassi/Esercitazia-API-JS-DB-SQLite/issues"
+  },
+  "homepage": "https://github.com/JackGrassi/Esercitazia-API-JS-DB-SQLite#readme",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "express": "^4.21.2",
+    "inquirer": "^12.3.0",
+    "sqlite3": "^5.1.7"
+  }
+}
