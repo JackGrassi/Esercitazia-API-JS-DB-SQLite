@@ -100,17 +100,20 @@ const domandeInserimento = [
         }
     },
     {
-        type: 'number',
+        type: 'input',
         name: 'prezzo',
         message: 'Prezzo Snack:',
         validate: (value) => {
-            if (value >= 0) {
+            const numero = parseFloat(value);
+            if (!isNaN(numero) && numero >= 0) {
                 return true;
             } else {
-                return 'Inserisci un prezzo non negativo!';
+                return 'Inserisci un prezzo valido (numero non negativo, anche decimale).';
             }
-        }
+        },
+        filter: (value) => parseFloat(value) // Converti automaticamente il valore in un numero decimale
     },
+    
     {
         type: 'number',
         name: 'calorie',
