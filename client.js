@@ -6,7 +6,22 @@ const menù = [
         type: 'list',
         name: 'menù',
         message: 'Cosa vuoi fare?',
-        choices: ['Visualizza prodotti', 'Visualizza prodotto richiesto', 'Visualizza snack di una categoria', 'Inserisci prodotto', 'Esci']
+        choices: ['Visualizza prodotti', 'Visualizza prodotto richiesto', 'Visualizza snack di una categoria', 'Visualizza snack sotto calorie richieste', 'Inserisci prodotto', 'Esci']
+    }
+];
+
+const domandaCalorie = [
+    {
+        type: 'number',
+        name: 'calorieSnack',
+        message: 'Calorie Snack massime richieste:',
+        validate: (value) => {
+            if (value >= 0) {
+                return true;
+            } else {
+                return 'Inserisci un numero non negativo!';
+            }
+        }
     }
 ];
 
@@ -142,6 +157,22 @@ function main() {
                     });
                 });
             break;
+            case 'Visualizza snack sotto calorie richieste':
+                inquirer.prompt(domandaCalorie).then((answers) => {
+                    const calorieSnack = answers.calorieSnack;
+                    axios.get(`http://localhost:3000/api/snack/calorie/${encodeURIComponent(calorieSnack)}`)
+                        .then((response) => {
+                            console.log("Snack sotto calorie indicate:", response.data);
+                        })
+                        .catch((err) => {
+                            if (err.response) {
+                                console.log("Errore:", err.response.status, err.response.data);
+                            } else {
+                                console.log("Errore nella connessione:", err.message);
+                            }
+                        });
+                });
+            break;
             case 'Inserisci prodotto':
                 inquirer.prompt(domandeInserimento).then((answers) => {
                     axios.put('http://localhost:3000/api/snack', {
@@ -160,7 +191,9 @@ function main() {
             case 'Esci':
             console.log("Bye!");
             return;
+            
         }
+        
     });
 }
 

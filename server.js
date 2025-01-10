@@ -143,6 +143,37 @@ app.get("/api/snack/categoria/:nome_categoria", (req, res) => {
     });
 });
 
+app.get("/api/snack/calorie/:calorie_snack", (req, res) => {
+    const calorieSnack = Number(req.params.calorie_snack);
+
+    // Apri il database
+    const db = new sqlite3.Database("magazzino.db", (err) => {
+        if (err) {
+            console.error("Errore apertura DB:", err.message);
+            return res.status(500).send("Errore server.");
+        }
+    });
+
+    // Esegui la query SQL con il parametro
+    db.all("SELECT * FROM Snack WHERE ((calorie/100) * peso) < ?", [calorieSnack], (err, rows) => {
+        if (err) {
+            console.error("Errore Query:", err.message);
+            return res.status(500).send("Errore durante la ricerca.");
+        }
+        if (rows.length === 0) {
+            return res.status(404).send("Nessuno snack trovato al di sotto di queste calorie.");
+        }
+        res.json(rows); // Restituisci tutti gli snack al di sotto del numero di calorie richieste
+        db.close((closeErr) => {
+            if (closeErr) {
+                console.error("Errore chiusura DB:", closeErr.message);
+            } else {
+                console.log("Database chiuso correttamente.");
+            }
+        });
+    });
+});
+
 
 
 app.put("/api/snack", (req, res) => {
