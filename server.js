@@ -81,7 +81,7 @@ app.get("/api/snack", (req, res) => {
 
 });
 
-app.get("/api/snack/:nome_snack", (req, res) => {
+app.get("/snack/:nome_snack", (req, res) => {
     const nomeSnack = req.params.nome_snack;
 
     // Apri il database
@@ -112,7 +112,7 @@ app.get("/api/snack/:nome_snack", (req, res) => {
     });
 });
 
-app.get("/api/snack/categoria/:nome_categoria", (req, res) => {
+app.get("/cat/:nome_categoria", (req, res) => {
     const nomeCategoria = req.params.nome_categoria;
 
     // Apri il database
@@ -143,7 +143,7 @@ app.get("/api/snack/categoria/:nome_categoria", (req, res) => {
     });
 });
 
-app.get("/api/snack/calorie/:calorie_snack", (req, res) => {
+app.get("/cal/:calorie_snack", (req, res) => {
     const calorieSnack = Number(req.params.calorie_snack);
 
     // Apri il database

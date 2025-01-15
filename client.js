@@ -140,7 +140,7 @@ function main() {
             case 'Visualizza prodotto richiesto':
                 inquirer.prompt(domandaNomeSnack).then((answers) => {
                     const nomeSnack = answers.nomeSnack.trim();
-                    axios.get(`http://localhost:3000/api/snack/${encodeURIComponent(nomeSnack)}`)
+                    axios.get(`http://localhost:3000/snack/${encodeURIComponent(nomeSnack)}`)
                         .then((response) => {
                             console.log("Dati dello snack:", response.data);
                             main(); // Torna al menu
@@ -158,7 +158,7 @@ function main() {
             case 'Visualizza snack di una categoria':
                 inquirer.prompt(domandaCategoria).then((answers) => {
                     const nomeCategoria = answers.nomeCategoria.trim();
-                    axios.get(`http://localhost:3000/api/snack/categoria/${encodeURIComponent(nomeCategoria)}`)
+                    axios.get(`http://localhost:3000/cat/${encodeURIComponent(nomeCategoria)}`)
                         .then((response) => {
                             console.log("Dati degli snack appartenenti alla categoria richiesta:");
                             console.log(response.data);
@@ -177,7 +177,7 @@ function main() {
             case 'Visualizza snack sotto calorie richieste':
                 inquirer.prompt(domandaCalorie).then((answers) => {
                     const calorieSnack = answers.calorieSnack;
-                    axios.get(`http://localhost:3000/api/snack/calorie/${encodeURIComponent(calorieSnack)}`)
+                    axios.get(`http://localhost:3000/cal/${encodeURIComponent(calorieSnack)}`)
                         .then((response) => {
                             console.log("Snack sotto calorie indicate:", response.data);
                             main(); // Torna al menu
