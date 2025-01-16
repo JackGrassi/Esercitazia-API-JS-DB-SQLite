@@ -111,7 +111,6 @@ const domandeInserimento = [
                 return 'Inserisci un prezzo valido (numero non negativo, anche decimale).';
             }
         },
-        filter: (value) => parseFloat(value) // Converti automaticamente il valore in un numero decimale
     },
     
     {
@@ -139,55 +138,40 @@ function main() {
                 break;
             case 'Visualizza prodotto richiesto':
                 inquirer.prompt(domandaNomeSnack).then((answers) => {
-                    const nomeSnack = answers.nomeSnack.trim();
-                    axios.get(`http://localhost:3000/snack/${encodeURIComponent(nomeSnack)}`)
+                    axios.get(`http://localhost:3000/snack/`+answers.nomeSnack.trim())
                         .then((response) => {
                             console.log("Dati dello snack:", response.data);
                             main(); // Torna al menu
                         })
                         .catch((err) => {
-                            if (err.response) {
-                                console.log("Errore:", err.response.status, err.response.data);
-                            } else {
-                                console.log("Errore nella connessione:", err.message);
-                            }
+                            console.log(err.response.data);
                             main(); // Torna al menu
                         });
                 });
                 break;
             case 'Visualizza snack di una categoria':
                 inquirer.prompt(domandaCategoria).then((answers) => {
-                    const nomeCategoria = answers.nomeCategoria.trim();
-                    axios.get(`http://localhost:3000/cat/${encodeURIComponent(nomeCategoria)}`)
+                    axios.get(`http://localhost:3000/cat/`+answers.nomeCategoria.trim())
                         .then((response) => {
                             console.log("Dati degli snack appartenenti alla categoria richiesta:");
                             console.log(response.data);
                             main(); // Torna al menu
                         })
                         .catch((err) => {
-                            if (err.response) {
-                                console.log("Errore:", err.response.status, err.response.data);
-                            } else {
-                                console.log("Errore nella connessione:", err.message);
-                            }
+                            console.log(err.response.data);
                             main(); // Torna al menu
                         });
                 });
                 break;
             case 'Visualizza snack sotto calorie richieste':
                 inquirer.prompt(domandaCalorie).then((answers) => {
-                    const calorieSnack = answers.calorieSnack;
-                    axios.get(`http://localhost:3000/cal/${encodeURIComponent(calorieSnack)}`)
+                    axios.get(`http://localhost:3000/cal/`+answers.calorieSnack)
                         .then((response) => {
                             console.log("Snack sotto calorie indicate:", response.data);
                             main(); // Torna al menu
                         })
                         .catch((err) => {
-                            if (err.response) {
-                                console.log("Errore:", err.response.status, err.response.data);
-                            } else {
-                                console.log("Errore nella connessione:", err.message);
-                            }
+                            console.log(err.response.data);
                             main(); // Torna al menu
                         });
                 });
